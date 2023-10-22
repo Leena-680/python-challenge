@@ -22,6 +22,7 @@ with open(csvpath) as csvfile:
     for row in csvreader:
         iTotalVotes += 1
         
+        # add new candidate and vote
         if row[2] in dict_candidates.keys():
             dict_candidates[row[2]]+=1
         else:
@@ -33,6 +34,7 @@ print("----------------------------\n")
 iWinner = 0   
 sWinner = ""
 
+# calculate percent votes for each candidate and find max votes
 for i in dict_candidates:
     print(i + ": " + str(round(dict_candidates[i]*100/iTotalVotes,3)) + "% (" + str(dict_candidates[i]) +")")
     if (iWinner == 0) or (dict_candidates[i] > iWinner):
@@ -43,6 +45,7 @@ print("\n----------------------------\n")
 print(f"Winner: {sWinner}")
 print("----------------------------\n\n")
 
+#write to output text file
 with open('PyPoll\Analysis\output.txt', 'a') as output_file:
     output_file.write('Election Results\n')
     output_file.write('----------------------------\n')
@@ -53,6 +56,6 @@ with open('PyPoll\Analysis\output.txt', 'a') as output_file:
        output_file.write(i + ': ' + str(round(dict_candidates[i]*100/iTotalVotes,3)) + '% (' + str(dict_candidates[i]) +')\n')
     
     output_file.write('----------------------------\n')
-    output_file.write('Winner: \n')
+    output_file.write(f'Winner: {sWinner}\n')
     output_file.write('----------------------------\n\n')
     
